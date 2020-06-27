@@ -50,7 +50,6 @@ class Engine:
 
 
             print("Total parts: ", len(self.partsList))
-                # /html/body/main/div[2]/table/tbody/tr[1]/td/strong/text()[2]
                 # Go through each page and pull as many part numbers as possible. Put these in 'partsList'
                 # Then go search all of them on ebay and see if anything is worth a lot
                 # Return results in descending order of expected value (with unknowns at the bottom)
