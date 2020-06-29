@@ -41,22 +41,26 @@ class Engine:
 
                     newListingMSRP = subTree.xpath('/html/body/main/div[2]/div[1]/div[4]/div[2]/p/text()')
                     newPart = Part(newListing[0].strip(), newListing[1].strip(), newListingMSRP)
-                    print("_________________________")
-                    print(newPart.description)
-                    print(newPart.partNumber)
-                    print(newPart.MSRP)
-                    print("_________________________")
                     self.partsList.append(newPart)
 
-
             print("Total parts: ", len(self.partsList))
-                # Go through each page and pull as many part numbers as possible. Put these in 'partsList'
-                # Then go search all of them on ebay and see if anything is worth a lot
-                # Return results in descending order of expected value (with unknowns at the bottom)
+            sortedDescending = []
+            elements = len(self.partsList)
+            while len(sortedDescending) < elements:
+                maxElement = self.partsList[0]
+                for element in self.partsList:
+                    if float(element.MSRP[0].replace('$', '0').replace('—', '')) >= float(maxElement.MSRP[0].replace('$', '0').replace('—', '')):
+                        maxElement = element
+                self.partsList.remove(maxElement)
+                sortedDescending.append(maxElement)
+            self.partsList = sortedDescending
+
+            print("Top 10 valuable parts:")
+            for index in range(10):
+                print(index, ".", self.partsList[index].MSRP[0], self.partsList[index].description)
 
         except requests.exceptions.RequestException as e:
             print("Connection error:", e)
 
-
-engine = Engine("4536a")
-engine = Engine("135ETL75E")
+# 2011, 300HP engine
+engine = Engine("DE300CXIIC")
