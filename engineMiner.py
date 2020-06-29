@@ -63,4 +63,4 @@ class Engine:
             print("Connection error:", e)
 
 # 2011, 300HP engine
-engine = Engine("DE300CXIIC")
+engine = Engine("4536a")
